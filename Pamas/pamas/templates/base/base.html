@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  {% if title %}
+  <title>Patient Management System {{title}}</title>
+  {% else %}
+    <title> Patient Management System </title>
+  {% endif %}
+
+</head>
+<body>
+    {% block content %} {%endblock%}
+</body>
+</html>
