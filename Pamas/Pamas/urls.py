@@ -15,16 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from rest_framework.urlpatterns import format_suffix_patterns
-from pamas import views
+from django.contrib.auth import views
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('pamas.urls')),
-    url(r'^doctors/', views.doctor_list.as_view()),
-    url(r'^patients/', views.patient_list.as_view()),
-    url(r'^appointments/', views.appointment_list.as_view()),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^logout/$', views.logout, {"next_page": '/'}),
 ]
 

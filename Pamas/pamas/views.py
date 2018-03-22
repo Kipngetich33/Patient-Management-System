@@ -18,38 +18,80 @@ def home(request):
     title = 'Home'
     return render(request,'base/home.html',{"title":title})
 
-class doctor_list(APIView):
-    
-    def get(self,request):
-        doctors1 = Doctor_profile.objects.all()
-        serializer = Doctor_profileSerializer(doctors1, many = True)
-        return Response(serializer.data)
-        
-    
-    def post(self):
-        pass
-        
-class patient_list(APIView):
-    
-    def get(self,request):
-        patient1 = Patient_profile.objects.all()
-        serializer = Patient_profileSerializer(patient1, many = True)
-        return Response(serializer.data)
-        
-    
-    def post(self):
-        pass
+@login_required(login_url='/accounts/login/')
+def appointment(request):
+    title = 'Appointment'
+    doctors = Doctor_profile.get_doctors()
+    return render(request,'base/appointment.html',{"title":title,"doctors":doctors})
 
-class appointment_list(APIView):
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class doctor_list(APIView):
     
-    def get(self,request):
-        appointment1 = Appointment.objects.all()
-        serializer = AppointmentSerializer(appointment1, many = True)
-        return Response(serializer.data)
+#     def get(self,request):
+#         doctors1 = Doctor_profile.objects.all()
+#         serializer = Doctor_profileSerializer(doctors1, many = True)
+#         return Response(serializer.data)
         
     
-    def post(self):
-        pass
+#     def post(self):
+#         pass
+        
+# class patient_list(APIView):
+    
+#     def get(self,request):
+#         patient1 = Patient_profile.objects.all()
+#         serializer = Patient_profileSerializer(patient1, many = True)
+#         return Response(serializer.data)
+        
+    
+#     def post(self):
+#         pass
+
+# class appointment_list(APIView):
+    
+#     def get(self,request):
+#         appointment1 = Appointment.objects.all()
+#         serializer = AppointmentSerializer(appointment1, many = True)
+#         return Response(serializer.data)
+        
+    
+#     def post(self):
+#         pass
 
 
 

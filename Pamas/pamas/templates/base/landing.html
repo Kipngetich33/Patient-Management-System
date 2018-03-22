@@ -4,8 +4,16 @@
 {{ block.super}}
 <div class="col-md-6">
     <h1>API section</h1>
+    <form action="#">
+        <input type="submit" value="APIs" />
+    </form>
+    
 </div>
 <div class="col-md-6">
     <h1>Login Form</h1>
+    <form action="{% url 'home' %}">
+        <input type="submit" value="Login"/>
+    </form>
+
 </div>
 {% endblock %}
