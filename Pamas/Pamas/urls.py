@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^doctors/', views.doctor_list.as_view()),
     url(r'^patients/', views.patient_list.as_view()),
     url(r'^appointments/', views.appointment_list.as_view()),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 ]
