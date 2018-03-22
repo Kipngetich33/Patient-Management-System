@@ -77,7 +77,7 @@ This project uses major technologies which are :
 
 ## Support and Contacts
 
-In case You have any issues using this code please do no hesitate to get in touch with me through khalifngeno@gmail.com or leave a commit here on github.
+In case You have any issues using this code please do no hesitate to get in touch with me through kipngetich.ngeno333@gmail.com or leave a commit here on github.
 
 ## License 
 
