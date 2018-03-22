@@ -1,11 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from . models import Doctor_profile,Patient_profile,Appointment
 from . serializers import Doctor_profileSerializer, Patient_profileSerializer,AppointmentSerializer
+
 from django.contrib.auth.decorators import login_required
 
 #Create your views here.
@@ -26,7 +26,19 @@ def appointment(request):
 
 
 
+# these are the API view classes
+class doctor_list(APIView):
+    def get(self, request, format=None):
+        all_doctors = Doctor_profile.objects.all()
+        serializers = Doctor_profileSerializer(all_doctors, many=True)
+        return Response(serializers.data)
 
+    def post(self, request, format=None):
+        serializers = Doctor_profileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
