@@ -13,7 +13,7 @@ def landing(request):
     title = "landing Page"
     return render(request,'base/landing.html',{"title":title})
 
-@login_required(login_url='/accounts/login/') 
+@login_required(login_url='/accounts/login/')
 def home(request):
     title = 'Home'
     return render(request,'base/home.html',{"title":title})

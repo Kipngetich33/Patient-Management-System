@@ -18,6 +18,7 @@ from django.contrib import admin
 from rest_framework.urlpatterns import format_suffix_patterns
 from pamas import views
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('pamas.urls')),
@@ -26,3 +27,4 @@ urlpatterns = [
     url(r'^appointments/', views.appointment_list.as_view()),
     url(r'^accounts/', include('registration.backends.simple.urls')),
 ]
+
