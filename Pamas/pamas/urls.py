@@ -11,8 +11,6 @@ urlpatterns=[
     url(r'^api/doctors/$', views.doctor_list.as_view()),
     url(r'^api/patients/$', views.patients_list.as_view()),
     url(r'^api/appointments/$', views.appointments_list.as_view())
- 
 ]
-
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
