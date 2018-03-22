@@ -25,6 +25,15 @@ def appointment(request):
     doctors = Doctor_profile.get_doctors()
     return render(request,'base/appointment.html',{"title":title,"doctors":doctors})
 
+@login_required(login_url='/accounts/login/')
+def profile(request):
+    title = 'profile'
+    return render(request,'base/profile.html')
+
+@login_required(login_url='/accounts/login/')
+def update_profile(request):
+    title = 'profile'
+    return render(request,'base/profile.html')
 
 
 # these are the API view classes

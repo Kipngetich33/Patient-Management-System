@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Patient_profile(models.Model):
+    profile = models.ImageField(upload_to="images/",null = True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     phone_number = models.IntegerField()
     email = models.EmailField(null = True)

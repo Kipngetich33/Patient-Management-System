@@ -6,6 +6,16 @@
 <div class="col-md-3"></div>
 <div class="col-md-6">
     <h3>Pick a Doctor</h3>
+    {% for doctor in doctors %}
+    <div class="col-md-4">
+        <div class="panel">
+            {{doctor.user.username}}
+            <img src="{{doctor.profile_pic.url}}" class="img-responsive" alt="Image">
+            {{doctor.hospital}}
+            
+        </div>
+    </div>
+    {% endfor %}
 </div>
 <div class="col-md-3"></div>
 {% endblock %}
