@@ -6,10 +6,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from . models import Doctor_profile,Patient_profile,Appointment
 from . serializers import Doctor_profileSerializer, Patient_profileSerializer,AppointmentSerializer
+from django.contrib.auth.decorators import login_required
 
 #Create your views here.
+def landing(request):
+    title = "landing Page"
+    return render(request,'base/landing.html',{"title":title})
+
+@login_required(login_url='/accounts/login/') 
 def home(request):
-    return render(request,'base/home.html')
+    title = 'Home'
+    return render(request,'base/home.html',{"title":title})
 
 class doctor_list(APIView):
     
