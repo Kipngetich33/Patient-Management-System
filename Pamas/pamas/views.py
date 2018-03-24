@@ -22,8 +22,9 @@ def home(request):
 
 @login_required(login_url='/accounts/login/')
 def appointment(request):
-    title = 'Appointment'
+    title = 'Appointments'
     doctors = Profile.get_doctors()
+    patients = Profile.get_patients()
     return render(request,'base/appointment.html',{"title":title,"doctors":doctors})
 
 # these are the test profiles and update_profiles
@@ -38,8 +39,7 @@ def update_profile(request):
             form = ProfileUpdateForm(request.POST,request.FILES)
 
             if form.is_valid():
-                requested_profile.name = form.cleaned_data['name']
-                requested_profile.profile_pic = form.cleaned_data['name']
+                requested_profile.profile_pic = form.cleaned_data['profile_pic']
                 requested_profile.user_type = form.cleaned_data['user_type']
                 requested_profile.phone_number = form.cleaned_data['phone_number']
                 requested_profile.email = form.cleaned_data['email']
@@ -54,7 +54,7 @@ def update_profile(request):
             form = ProfileUpdateForm(request.POST,request.FILES)
 
             if form.is_valid():
-                new_profile = Profile(name = form.cleaned_data['name'], profile_pic= form.cleaned_data['profile_pic'],user_type = form.cleaned_data['user_type'],phone_number = form.cleaned_data['phone_number'],email = form.cleaned_data['email'],hospital = form.cleaned_data['hospital'],location = form.cleaned_data['location'],user = current_user)
+                new_profile = Profile(profile_pic= form.cleaned_data['profile_pic'],user_type = form.cleaned_data['user_type'],phone_number = form.cleaned_data['phone_number'],email = form.cleaned_data['email'],hospital = form.cleaned_data['hospital'],location = form.cleaned_data['location'],user = current_user)
                 new_profile.save()
                 return redirect( profile )
         else:
@@ -71,6 +71,18 @@ def profile(request):
     except:
         profile = Profile.objects.get(email = 'default_user@pamas.com')
     return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user})
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'name' in request.GET and request.GET["name"]: 
+        search_name = request.GET.get("name")
+        found_users = Profile.find_profile(search_name)
+        message =f"{search_name}" 
+
+        return render(request,'all-grams/search_results.html',{"message":message,"found_users":found_users})
+    else:
+        message = "Please enter a valid username"
+    return render(request,'all-grams/search_results.html',{"message":message})
 
 
 # these are the API view classes

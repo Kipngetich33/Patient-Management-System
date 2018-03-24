@@ -11,6 +11,8 @@ class Profile(models.Model):
     hospital = models.CharField(max_length =30 , null = True)
     location = models.CharField(max_length =30) 
 
+    def __str__(self):
+        return self.email 
 
     @classmethod
     def get_doctors(cls):
@@ -20,8 +22,11 @@ class Profile(models.Model):
         found_doctors = cls.objects.filter(user_type = 1)
         return found_doctors
 
-    def __str__(self):
-        return self.email
+    @classmethod
+    def find_profile(cls,name):
+        found_profiles = cls.objects.filter(username__icontains = name).all()
+        return found_profiles
+
 
 
 class Appointment(models.Model):
