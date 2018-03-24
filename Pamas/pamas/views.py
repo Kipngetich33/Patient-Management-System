@@ -67,15 +67,13 @@ def profile(request):
     title = 'Profile'
     current_user = request.user
     try:
-        profile = Profile.objects.get(user_id = current_user)
+        profile = Profile.objects.get(user = current_user)
     except:
-        profile = Profile.objects.get(user = 'default_user')
-    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user,"following":following,"followers":followers})
-
+        profile = Profile.objects.get(email = 'default_user@pamas.com')
+    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user})
 
 
 # these are the API view classes
-
 class profiles_list(APIView):
     def get(self, request, format=None):
         all_patients = Profile.objects.all()
