@@ -37,15 +37,17 @@ def update_profile(request):
         requested_profile = Profile.objects.get(user_id = current_user.id)
         if request.method == 'POST':
             form = ProfileUpdateForm(request.POST,request.FILES)
+            fname = f'{current_user.username}'
 
             if form.is_valid():
+                requested_profile.name = form.cleaned_data['name']
                 requested_profile.profile_pic = form.cleaned_data['profile_pic']
                 requested_profile.user_type = form.cleaned_data['user_type']
                 requested_profile.phone_number = form.cleaned_data['phone_number']
                 requested_profile.email = form.cleaned_data['email']
                 requested_profile.hospital = form.cleaned_data['hospital']
                 requested_profile.location = form.cleaned_data['location']
-                requested_profile.save_profile()
+                requested_profile.save()
                 return redirect( profile )
         else:
             form = ProfileUpdateForm()
@@ -79,10 +81,10 @@ def search_results(request):
         found_users = Profile.find_profile(search_name)
         message =f"{search_name}" 
 
-        return render(request,'all-grams/search_results.html',{"message":message,"found_users":found_users})
+        return render(request,'base/search_results.html',{"message":message,"found_users":found_users})
     else:
         message = "Please enter a valid username"
-    return render(request,'all-grams/search_results.html',{"message":message})
+    return render(request,'base/search_results.html',{"message":message})
 
 
 # these are the API view classes

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
+    name = models.CharField(max_length =30 , null = True)
     profile_pic = models.ImageField(upload_to="images/",null = True)
     user_type = models.CharField(max_length =30 , null = True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -24,11 +25,11 @@ class Profile(models.Model):
 
     @classmethod
     def find_profile(cls,name):
-        found_profiles = cls.objects.filter(username__icontains = name).all()
+        found_profiles = cls.objects.filter(name__icontains = name).all()
         return found_profiles
 
 
-
+# this is the APIs section 
 class Appointment(models.Model):
     type_of_appointment = models.CharField(max_length =30)
     appointement_time = models.CharField(max_length =30)
