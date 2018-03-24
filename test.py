@@ -1,14 +1,13 @@
+binary_string = ''
 def recursive_bin(decimal):
-    if decimal <0:
-        return "no negative numbers" # you dont need the parenthesis
-    elif decimal == 0:
-        return 0 # the final output is an integer keep it this way ,converting to a string only applies where the number needs to be reversed
-    else:
-        # this is where the recursion occurs if the number passes the above exceptions
-        binary_string ='' # initilize and empty binary string where functions appends binary digits as they are generated
-        binary_string += str(decimal % 2)
-        decimal /= 2
-        if decimal == 1:
-            return binary_string
+        global binary_string
+        binary_string += str(int(decimal % 2))
+        if (decimal // 2) == 0:
+            print (binary_string[::-1])
         else:
-            return recursive_bin(decimal)
+            decimal = decimal /2
+            recursive_bin(decimal)  
+
+
+
+recursive_bin(25)     
