@@ -1,23 +1,23 @@
 from django.test import TestCase
-from .models import Patient_profile,Doctor_profile, Appointment
+from . models import Profile, Appointment
 
-class Patient_profileTestClass(TestCase):
+class ProfileTestClass(TestCase):
     '''
-    Class that tests the behavior of the Patient_rofile class model
+    Class that tests the behavior of the Profile class model
     '''
     def setUp(self):
         '''
         Method that runs at the begining of each Test case
         '''
-        self.test_profile = Patient_profile(email = 'patient@gmail.com',phone_number ='0712567583', location = 'Bomet')
+        self.test_profile = Profile(name = 'Neriah' , usertype = '1' ,email = 'patient@gmail.com',phone_number ='0712567583', hospital = 'Tenwek' ,location = 'Bomet')
 
     def test_isinstance(self):
         '''
         Method that test if objects are instances of the class Profile
         '''
-        self.assertTrue(isinstance(self.test_profile,Patient_profile))
+        self.assertTrue(isinstance(self.test_profile,Profile))
 
-class Doctor_profileTestClass(TestCase):
+class AppointmentTestClass(TestCase):
     '''
     Class that tests the behavior of the Doctor_profile class model
     '''
@@ -25,20 +25,13 @@ class Doctor_profileTestClass(TestCase):
         '''
         Method that runs at the begining of each Test case
         '''
-        self.test_profile = Doctor_profile(email = 'doctor@gmail.com',phone_number ='0712567583',hospital ='Aga Khan' ,location = 'Bomet')
+        self.test_profile = Appointment(type_of_appointment = 'Consultation',appointment_date = '03/23/2017', appointment_time = '7:00')
 
     def test_isinstance(self):
         '''
-        Method that test if objects are instances of the class Profile
+        Method that test if objects are instances of the class Appointment
         '''
-        self.assertTrue(isinstance(self.test_profile,Doctor_profile))
+        self.assertTrue(isinstance(self.test_profile,Appointment))
 
-    def test_get_doctors(self):
-        '''
-        Method that tests the get doctors method of Doctor_profile class
-        '''
-        self.test_profile.save()
-        found_doctors = Doctor_profile.get_doctors()
-        self.assertTrue(len(found_doctors) == 1)
 
 

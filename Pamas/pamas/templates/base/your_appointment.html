@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3>My Appointments</h3>
+{% for appointment in my_appointments %}
+{{appointment.type_of_appointment}}
+{{appointment.doctor.name}}
+{{appointment.patient.username}}
+{% endfor %}
+{% endblock %}

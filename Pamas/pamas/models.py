@@ -49,4 +49,14 @@ class Appointment(models.Model):
     def __str__(self):
         return self.type_of_appointment
 
+    @classmethod
+    def find_my_appointment(cls,user_id):
+        '''
+        Method that finds appointments belonging to the current user
+        '''
+        found_appointments = Appointment.objects.filter(patient = user_id)
+        return found_appointments
+
+
+
 

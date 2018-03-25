@@ -89,7 +89,6 @@ def search_results(request):
 
 @login_required(login_url='/accounts/login/')
 def book_appointment(request,doc_id):
-
     current_user = request.user 
     title = 'Book Appointment'
     requested_doctor = Profile.objects.get(id = doc_id)
@@ -108,6 +107,14 @@ def book_appointment(request,doc_id):
     else:
         form = FormAppointment()
     return render(request,'base/book_appointment.html',{"form":form})
+
+
+def my_appointment(request):
+    current_user = request.user 
+    my_appointments = Appointment.find_my_appointment(current_user)
+    return render(request,'base/your_appointment.html',{"my_appointments":my_appointments})
+
+
 
 
 # these are the API view classes
