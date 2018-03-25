@@ -22,10 +22,13 @@
                 <a href="#">
                     <img src="{{found_user.profile_pic.url}}" class="img-responsive" alt='Image'>
                 </a>
-                <a href="#">
+                {% if found_user.user_type == '1' %}
                     <h5>Dr.&nbsp;{{found_user.name}} &nbsp;&nbsp; {{found_user.hospital}}&nbsp;Hospital</h5>
-                </a>
-                <a href="{% url 'book_appointment' found_user.id %}">Book an Appointment with Dr.{{found_user.name}}</a>
+                    <a href="{% url 'book_appointment' found_user.id %}">Book an Appointment with Dr.{{found_user.name}}</a>
+                {% else %}
+                    <h5>{{found_user.name}} &nbsp;&nbsp; {{found_user.location}}</h5>
+                    <a href="{% url 'book_appointment' found_user.id %}">Book an Appointment with {{found_user.name}} &nbsp; | &nbsp;Patient</a>
+                {% endif %}
             </div>
             {% endfor %} {% endif %}
 

@@ -48,7 +48,7 @@ def update_profile(request):
                 requested_profile.email = form.cleaned_data['email']
                 requested_profile.hospital = form.cleaned_data['hospital']
                 requested_profile.location = form.cleaned_data['location']
-                requested_profile.save()
+                requested_profile.save_profile()
                 return redirect( profile )
         else:
             form = ProfileUpdateForm()

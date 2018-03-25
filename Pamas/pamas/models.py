@@ -15,6 +15,12 @@ class Profile(models.Model):
     def __str__(self):
         return self.email 
 
+    def save_profile(self):
+        '''
+        Method that saves a created profile object
+        '''
+        self.save()
+
     @classmethod
     def get_doctors(cls):
         '''
