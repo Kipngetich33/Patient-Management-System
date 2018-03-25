@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . forms import ProfileUpdateForm
+from . forms import ProfileUpdateForm, FormAppointment
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -85,6 +85,27 @@ def search_results(request):
     else:
         message = "Please enter a valid username"
     return render(request,'base/search_results.html',{"message":message})
+
+@login_required(login_url='/accounts/login/')
+def book_appointment(request,doc_id):
+
+    current_user = request.user 
+    title = 'Book Appointment'
+    requested_doctor = Profile.objects.get(profile_id = doc_id)
+    if request.method == 'POST':
+        form = FormAppointment(request.POST,request.FILES)
+        fname = f'{current_user.username}'
+
+        if form.is_valid():
+            type_of_appointment = form.cleaned_data['type_of_appointment']
+            appointment_date = form.cleaned_data['appointment_date']
+            appointment_time = form.cleaned_data['appointment_time']
+
+            new_appointment = Appointment(type_of_appointment = type_of_appointment ,appointment_date = appointment_date, appointment_time = appointment_time, doctor =requested_doctor ,patient = current_user)
+            return redirect( 'your_appointments' )
+    else:
+        form = ProfileUpdateForm()
+    return render(request,'base/book_appointment.html')
 
 
 # these are the API view classes
