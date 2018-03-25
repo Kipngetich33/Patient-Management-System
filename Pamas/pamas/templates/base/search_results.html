@@ -25,6 +25,7 @@
                 <a href="#">
                     <h5>Dr.&nbsp;{{found_user.name}} &nbsp;&nbsp; {{found_user.hospital}}&nbsp;Hospital</h5>
                 </a>
+                <a href="{% url 'book_appointment' found_user.id %}">Book an Appointment with Dr.{{found_user.name}}</a>
             </div>
             {% endfor %} {% endif %}
 

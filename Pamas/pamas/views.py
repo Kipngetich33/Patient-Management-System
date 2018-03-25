@@ -17,8 +17,9 @@ def landing(request):
 
 @login_required(login_url='/accounts/login/')
 def home(request):
+    current_user = request.user
     title = 'Home'
-    return render(request,'base/home.html',{"title":title})
+    return render(request,'base/home.html',{"title":title,"current_user":current_user})
 
 @login_required(login_url='/accounts/login/')
 def appointment(request):
@@ -91,7 +92,7 @@ def book_appointment(request,doc_id):
 
     current_user = request.user 
     title = 'Book Appointment'
-    requested_doctor = Profile.objects.get(profile_id = doc_id)
+    requested_doctor = Profile.objects.get(id = doc_id)
     if request.method == 'POST':
         form = FormAppointment(request.POST,request.FILES)
         fname = f'{current_user.username}'
@@ -102,10 +103,11 @@ def book_appointment(request,doc_id):
             appointment_time = form.cleaned_data['appointment_time']
 
             new_appointment = Appointment(type_of_appointment = type_of_appointment ,appointment_date = appointment_date, appointment_time = appointment_time, doctor =requested_doctor ,patient = current_user)
-            return redirect( 'your_appointments' )
+            new_appointment.save()
+            return redirect( 'home' )
     else:
-        form = ProfileUpdateForm()
-    return render(request,'base/book_appointment.html')
+        form = FormAppointment()
+    return render(request,'base/book_appointment.html',{"form":form})
 
 
 # these are the API view classes

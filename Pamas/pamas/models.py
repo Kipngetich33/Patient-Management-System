@@ -32,8 +32,8 @@ class Profile(models.Model):
 # this is the APIs section 
 class Appointment(models.Model):
     type_of_appointment = models.CharField(max_length =30)
-    appointement_date = models.DateField(null = True)
-    appointement_time = models.TimeField(null = True)
+    appointment_date = models.DateField(null = True)
+    appointment_time = models.TimeField(null = True)
     pub_date = models.DateTimeField(auto_now_add=True)
     doctor = models.ForeignKey(Profile,on_delete=models.CASCADE)
     patient = models.ForeignKey(User,on_delete=models.CASCADE)

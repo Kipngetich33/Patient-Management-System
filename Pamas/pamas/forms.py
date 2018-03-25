@@ -18,7 +18,7 @@ class FormAppointment(forms.Form):
     '''
     Class that creates and appointment form 
     '''
-    type_of_appointment = forms.CharField(label = 'Type of appointment')
-    appointement_date = forms.DateField(label = 'Date')
-    appointement_time = forms.TimeField(label = 'Time')
+    type_of_appointment = forms.CharField(label = 'Type of appointment e.g Consultation')
+    appointment_date = forms.DateField(label = 'Date  e.g 12/23/2018 ' )
+    appointment_time = forms.TimeField(label = 'Time e.g 14:00')
 
