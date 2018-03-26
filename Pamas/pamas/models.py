@@ -45,6 +45,7 @@ class Appointment(models.Model):
     patient = models.ForeignKey(User,on_delete=models.CASCADE)
     status = models.BooleanField(default = False)
     on = models.BooleanField(default = True)
+    comment =models.TextField(default= True)
 
     def __str__(self):
         return self.type_of_appointment

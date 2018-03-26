@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from . forms import ProfileUpdateForm, FormAppointment
+from . forms import ProfileUpdateForm, FormAppointment, AttendForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -114,8 +114,27 @@ def my_appointment(request):
     my_appointments = Appointment.find_my_appointment(current_user)
     return render(request,'base/your_appointment.html',{"my_appointments":my_appointments})
 
+def attend_appointment(request,appointment_id):
+    title = 'Attend Appointment'
+    current_user = request.user
+    requested_appointment = Appointment.objects.get(id = appointment_id)
+    if request.method == 'POST':
+        form = AttendForm(request.POST,request.FILES)
+        fname = f'{current_user.username}'
 
+        if form.is_valid():
+            comment = form.cleaned_data['comment']
+            requested_appointment.stutus = True # the status is set to true once the appointment has been attended
+            requested_appointment.save()
+            return redirect( 'my_appointment' )
+    else:
+        form = FormAppointment()
+    return render(request,'attend.html',{"form":form})
 
+def cancel_appointment(request,appointment_id):
+    requested_appointment = Appointment.objects.get(id = appointment_id)
+    requested_appointment.on = False # on is set to false if the appointment is cancelled
+    return redirect('my_appointment')
 
 # these are the API view classes
 class profiles_list(APIView):
@@ -147,6 +166,8 @@ class appointments_list(APIView):
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
     permission_classes = (IsAdminOrReadOnly,)
+
+
 
 
 

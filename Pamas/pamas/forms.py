@@ -22,3 +22,9 @@ class FormAppointment(forms.Form):
     appointment_date = forms.DateField(label = 'Date  e.g 12/23/2018 ' )
     appointment_time = forms.TimeField(label = 'Time e.g 14:00')
 
+
+class AttendForm(forms.Form):
+    '''
+    Class that creates and appointment form 
+    '''
+    comment = forms.CharField(label = 'Add a note', max_length=1000)
