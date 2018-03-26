@@ -14,6 +14,7 @@ urlpatterns=[
     url('^book/appointment/(\d+)',views.book_appointment,name = 'book_appointment'),
     url('^my/appointments/',views.my_appointment,name = 'my_appointment'),
     url('^attend/appointment/(\d+)',views.attend_appointment,name = 'attend_appointment'),
+    url('^cancel/appointment/(\d+)',views.cancel_appointment,name = 'cancel_appointment'),
     url(r'^api/profiles/$', views.profiles_list.as_view()),
     url(r'^api/appointments/$', views.appointments_list.as_view())
     

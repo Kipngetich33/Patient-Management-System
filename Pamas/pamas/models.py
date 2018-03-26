@@ -44,9 +44,8 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Profile,on_delete=models.CASCADE)
     patient = models.ForeignKey(User,on_delete=models.CASCADE)
     status = models.BooleanField(default = False)
-    on = models.BooleanField(default = True)
-    comment =models.TextField(default= True)
-
+    on = models.CharField(default = 'Pending' ,max_length = 30)
+    comment =models.TextField()
     def __str__(self):
         return self.type_of_appointment
 
@@ -56,6 +55,14 @@ class Appointment(models.Model):
         Method that finds appointments belonging to the current user
         '''
         found_appointments = Appointment.objects.filter(patient = user_id)
+        return found_appointments
+
+    @classmethod
+    def find_attended_or_cancelled(cls,user_id):
+        '''
+        Method that finds all the attended or cancalled appointments
+        '''
+        found_appointments = Appointment.objects.filter(patient = user_id,status = True)
         return found_appointments
 
 

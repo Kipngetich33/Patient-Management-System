@@ -112,7 +112,8 @@ def book_appointment(request,doc_id):
 def my_appointment(request):
     current_user = request.user 
     my_appointments = Appointment.find_my_appointment(current_user)
-    return render(request,'base/my_appointment.html',{"my_appointments":my_appointments})
+    attended = Appointment.find_attended_or_cancelled(current_user)
+    return render(request,'base/my_appointment.html',{"my_appointments":my_appointments,"attended":attended})
 
 def attend_appointment(request,appointment_id):
     title = 'Attend Appointment'
@@ -124,7 +125,8 @@ def attend_appointment(request,appointment_id):
 
         if form.is_valid():
             comment = form.cleaned_data['comment']
-            requested_appointment.stutus = True # the status is set to true once the appointment has been attended
+            requested_appointment.status = True # the status is set to true once the appointment has been attended
+            requested_appointment.on = 'Attended' 
             requested_appointment.save()
             return redirect( 'my_appointment' )
     else:
@@ -133,7 +135,9 @@ def attend_appointment(request,appointment_id):
 
 def cancel_appointment(request,appointment_id):
     requested_appointment = Appointment.objects.get(id = appointment_id)
-    requested_appointment.on = False # on is set to false if the appointment is cancelled
+    requested_appointment.status = True
+    requested_appointment.on = 'Cancelled' # on is set to false if the appointment is cancelled
+    requested_appointment.save()
     return redirect('my_appointment')
 
 # these are the API view classes

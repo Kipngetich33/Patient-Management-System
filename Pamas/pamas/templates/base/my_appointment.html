@@ -1,10 +1,33 @@
 {% extends 'base.html' %}
 {% load static%}
 {% block content %}
-<h3>My Appointments</h3>
-<div class="col-md-1"></div>
-<div class="col-md-8">
+<h2 style="text-align: center;">My Appointments</h2>
+<hr>
+<h3 style="text-align: center;">Pending Appointments</h3>
+<div class="col-md-12">
     {% for appointment in my_appointments %}
+    <div class="col-md-4">
+        <div class="panel" style="background-color:gainsboro;">
+            {% if appointment.doctor.user_type == 1%}
+                Dr. {{appointment.doctor.name}}
+                <img src={{appointment.doctor.profile_pic.url}} alt="profile pic" class="img-responsive img-rounded"><br>
+                {{appointment.type_of_appointment}}<br>
+                {{appointment.patient.username}}
+            {% else %}
+                {{appointment.doctor.name}}  <span style="float:right;">&nbsp;|&nbsp;Patient</span>
+                <img src={{appointment.doctor.profile_pic.url}} alt="profile pic" class="img-responsive img-rounded"><br>
+                Type of Appointment:{{appointment.type_of_appointment}}<br>
+                <a href="{% url 'cancel_appointment' appointment.id %}"><button  class="btn btn-primary">Cancel Appointment</button></a>
+                <a href="{% url 'attend_appointment' appointment.id %}"><button  class="btn btn-primary">Attend Appointment</button></a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="col-md-12">
+    <hr>
+    <h3 style="text-align: center;">Attended or Cancelled Appointments</h3>
+    {% for appointment in attended %}
     <div class="col-md-4">
         <div class="panel" style="background-color:gainsboro;">
             {% if appointment.doctor.user_type == 1%}
@@ -23,5 +46,4 @@
     </div>
     {% endfor %}
 </div>
-<div class="col-md-1"></div>
 {% endblock %}
