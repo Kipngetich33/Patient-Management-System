@@ -112,7 +112,7 @@ def book_appointment(request,doc_id):
 def my_appointment(request):
     current_user = request.user 
     my_appointments = Appointment.find_my_appointment(current_user)
-    return render(request,'base/your_appointment.html',{"my_appointments":my_appointments})
+    return render(request,'base/my_appointment.html',{"my_appointments":my_appointments})
 
 def attend_appointment(request,appointment_id):
     title = 'Attend Appointment'
@@ -128,8 +128,8 @@ def attend_appointment(request,appointment_id):
             requested_appointment.save()
             return redirect( 'my_appointment' )
     else:
-        form = FormAppointment()
-    return render(request,'attend.html',{"form":form})
+        form = AttendForm()
+    return render(request,'base/attend_appointment.html',{"form":form,"requested_appointment":requested_appointment})
 
 def cancel_appointment(request,appointment_id):
     requested_appointment = Appointment.objects.get(id = appointment_id)
