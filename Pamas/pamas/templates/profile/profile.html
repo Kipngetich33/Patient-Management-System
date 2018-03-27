@@ -11,15 +11,18 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" style="padding:10px;">
                 <h5 style="font-size:35px;">{{profile.name}}</h5>
-                <p>{{profile.email}}</p>
-                <p>{{profile.hospital}}</p>
-                <p>{{profile.location}}</p>
-                {% endif %}
-                 {% if profile.user == current_user%}
-                <a href="{% url 'update_profile'%}"><button class="btn btn-primary">Edit Profile</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {% else%} <h3>Profile has not been created yet</h3>
-                <a href="{% url 'update_profile'%}"><button class="btn btn-primary">Create Profile</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}
                 <hr>
+                <p>Email:{{profile.email}}</p>
+                <p>Hospital:{{profile.hospital}}</p>
+                <p>Location: {{profile.location}}</p>
+                {% endif %}
+                {% if profile.user == current_user%}
+                <a href="{% url 'update_profile'%}"><button class="btn btn-primary">Edit Profile</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {% endif %}
+                {% if profile.name == 'default_user'%}
+                <h3>Profile has not been created yet</h3>
+                <a href="{% url 'update_profile'%}"><button class="btn btn-primary">Create Profile</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   
+                {% endif %} 
             </div>
         </div>
 

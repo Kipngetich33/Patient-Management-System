@@ -140,6 +140,16 @@ def cancel_appointment(request,appointment_id):
     requested_appointment.save()
     return redirect('my_appointment')
 
+@login_required(login_url='/accounts/login/')
+def view_profile(request,user_id):
+    title = 'Profile'
+    try:
+        profile = Profile.objects.get(id = user_id)
+        current_user = profile.name
+    except:
+        profile = Profile.objects.get(email = 'default_user@pamas.com')
+    return render(request, 'profile/profile.html',{"profile":profile,"current_user":current_user})
+
 # these are the API view classes
 class profiles_list(APIView):
     def get(self, request, format=None):
